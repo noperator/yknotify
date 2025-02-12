@@ -41,3 +41,5 @@ I've seen a few rare false positives (i.e., a log when the YubiKey is not waitin
 ### To-do
 
 - [ ] perhaps add a debug flag to show context around related log messages
+- [ ] add LaunchAgent example
+- [ ] show how to notify with osascript
