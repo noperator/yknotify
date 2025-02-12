@@ -16,6 +16,12 @@ usbsmartcardreaderd: [com.apple.CryptoTokenKit:ccid] Time extension received
 
 As soon as the YubiKey is touched, we'll get a new/different log message in the same category. So the strategy here is to check if either of the above messages are the last one logged in their respective categories, and if so, notify the user to touch the YubiKey.
 
+### Install
+
+```
+go install github.com/noperator/yknotify
+```
+
 ### Usage
 
 ```
@@ -31,3 +37,7 @@ I've seen a few rare false positives (i.e., a log when the YubiKey is not waitin
 ### See also
 
 - https://github.com/maximbaz/yubikey-touch-detector/issues/5#issuecomment-2568300068
+
+### To-do
+
+- [ ] perhaps add a debug flag to show context around related log messages
