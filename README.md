@@ -37,6 +37,7 @@ I've seen a few rare false positives (i.e., a log when the YubiKey is not waitin
 ### See also
 
 - https://github.com/maximbaz/yubikey-touch-detector/issues/5#issuecomment-2568300068
+- https://news.ycombinator.com/item?id=43029385#43037235
 
 ### To-do
 
