@@ -19,15 +19,33 @@ As soon as the YubiKey is touched, we'll get a new/different log message in the 
 ### Install
 
 ```
-go install github.com/noperator/yknotify
+go install github.com/noperator/yknotify@latest
 ```
 
 ### Usage
 
+Run from CLI.
+
 ```
-𝄢 yknotify
+yknotify
 {"ts":"2025-02-12T20:09:03Z","type":"FIDO2"}
 {"ts":"2025-02-12T20:09:14Z","type":"OpenPGP"}
+```
+
+Run as LaunchAgent logging to Notification Center.
+
+```
+# Enable terminal-based Notification Center messages
+brew install terminal-notifier
+
+# Install agent files
+sed -i .bu -E "s/<USER>/$USER/g" yknotify.sh com.user.yknotify.plist
+cp yknotify.sh "$HOME/"
+cp com.user.yknotify.plist "$HOME/Library/LaunchAgents/"
+
+# Load + start service
+launchctl load "$HOME/Library/LaunchAgents/com.user.yknotify.plist"
+launchctl start com.user.yknotify
 ```
 
 ### Troubleshooting
@@ -42,5 +60,5 @@ I've seen a few rare false positives (i.e., a log when the YubiKey is not waitin
 ### To-do
 
 - [ ] perhaps add a debug flag to show context around related log messages
-- [ ] add LaunchAgent example
-- [ ] show how to notify with osascript
+- [x] add LaunchAgent example
+- [x] show how to notify with osascript

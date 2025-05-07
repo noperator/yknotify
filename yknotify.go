@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"encoding/json"
+	"fmt"
 	"log"
 	"os/exec"
 	"strings"
@@ -39,7 +40,7 @@ func (ts *TouchState) checkAndNotify() {
 			Timestamp: now.UTC().Format(time.RFC3339),
 		}
 		if bytes, err := json.Marshal(event); err == nil {
-			log.Printf("%s", bytes)
+			fmt.Println(string(bytes))
 		}
 	}
 	if ts.openPGPNeeded {
@@ -48,7 +49,7 @@ func (ts *TouchState) checkAndNotify() {
 			Timestamp: now.UTC().Format(time.RFC3339),
 		}
 		if bytes, err := json.Marshal(event); err == nil {
-			log.Printf("%s", bytes)
+			fmt.Println(string(bytes))
 		}
 	}
 	ts.lastNotify = now
