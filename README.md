@@ -1,4 +1,8 @@
-# yknotify
+<div align="center">
+  <kbd>
+    <img src="notification.png" />
+  </kbd>
+</div>
 
 `yknotify` watches macOS logs (via `log stream` CLI command) for events that I've determined, through trial and error, are heuristically associated with the YubiKey waiting for touch. I primarily use the FIDO2 and OpenPGP features and haven't tested other applications listed in `ykman info` (e.g., Yubico OTP, FIDO U2F, OATH, PIV, YubiHSM Auth).
 
