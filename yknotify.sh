@@ -13,7 +13,9 @@ TERM_NTFY_BIN="/opt/homebrew/bin/terminal-notifier"
 
     # Send notification using terminal-notifier
     if [[ -x "$TERM_NTFY_BIN" ]]; then
-        "$TERM_NTFY_BIN" -title "yknotify" -message "$message"
+        # List of sounds: https://apple.stackexchange.com/a/479714
+        # Use "legacy name" as noted here: https://github.com/julienXX/terminal-notifier/issues/283#issuecomment-832569237
+        "$TERM_NTFY_BIN" -title "yknotify" -message "$message" -sound Submarine
     else
         # Fallback to AppleScript if terminal-notifier is not installed
         osascript -e "display notification \"$message\" with title \"yknotify\""
