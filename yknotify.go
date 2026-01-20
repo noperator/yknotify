@@ -11,7 +11,7 @@ import (
 	"time"
 )
 
-const defaultPredicate = `(senderImagePath CONTAINS "HID") OR (subsystem CONTAINS "CryptoTokenKit")`
+const defaultPredicate = `(processImagePath == "/kernel" AND senderImagePath ENDSWITH "IOHIDFamily") OR (subsystem CONTAINS "CryptoTokenKit")`
 
 var (
 	predicate = flag.String("predicate", defaultPredicate, "NSPredicate filter for log stream")
