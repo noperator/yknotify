@@ -21,6 +21,12 @@ usbsmartcardreaderd: [com.apple.CryptoTokenKit:ccid] Time extension received
 
 As soon as the YubiKey is touched, we'll get a new/different log message in the same category. So the strategy here is to check if either of the above messages are the last one logged in their respective categories, and if so, notify the user to touch the YubiKey.
 
+### Why?
+
+When you've tied your YubiKey to many things (SSH, Git signing, GPG, sudo, etc.), you don't always get terminal output indicating a touch is needed. You might find yourself waiting for a "stuck" Git clone to complete, only to realize minutes later that the YubiKey has been silently flashing the whole time.
+
+We ain't training Pavlovian doggies here. Touching your YubiKey should always be an intentful act, and `yknotify` doesn't change that. It's simply a more noticeable version of the YubiKey's flashing green LED.
+
 ### Install
 
 ```
