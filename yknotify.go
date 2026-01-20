@@ -6,6 +6,7 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"os"
 	"os/exec"
 	"strings"
 	"time"
@@ -16,6 +17,7 @@ const defaultPredicate = `(processImagePath == "/kernel" AND senderImagePath END
 var (
 	predicate = flag.String("predicate", defaultPredicate, "NSPredicate filter for log stream")
 	noFilter  = flag.Bool("no-filter", false, "Disable log filtering (warning: high CPU usage)")
+	once      = flag.Bool("once", false, "Exit after emitting one event")
 )
 
 type LogEntry struct {
@@ -49,6 +51,9 @@ func (ts *TouchState) checkAndNotify() {
 		}
 		if bytes, err := json.Marshal(event); err == nil {
 			fmt.Println(string(bytes))
+			if *once {
+				os.Exit(0)
+			}
 		}
 	}
 	if ts.openPGPNeeded {
@@ -58,6 +63,9 @@ func (ts *TouchState) checkAndNotify() {
 		}
 		if bytes, err := json.Marshal(event); err == nil {
 			fmt.Println(string(bytes))
+			if *once {
+				os.Exit(0)
+			}
 		}
 	}
 	ts.lastNotify = now
