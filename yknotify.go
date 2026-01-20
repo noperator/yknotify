@@ -3,11 +3,19 @@ package main
 import (
 	"bufio"
 	"encoding/json"
+	"flag"
 	"fmt"
 	"log"
 	"os/exec"
 	"strings"
 	"time"
+)
+
+const defaultPredicate = `(senderImagePath CONTAINS "HID") OR (subsystem CONTAINS "CryptoTokenKit")`
+
+var (
+	predicate = flag.String("predicate", defaultPredicate, "NSPredicate filter for log stream")
+	noFilter  = flag.Bool("no-filter", false, "Disable log filtering (warning: high CPU usage)")
 )
 
 type LogEntry struct {
@@ -56,7 +64,11 @@ func (ts *TouchState) checkAndNotify() {
 }
 
 func streamLogs() error {
-	cmd := exec.Command("log", "stream", "--level", "debug", "--style", "ndjson")
+	args := []string{"stream", "--level", "debug", "--style", "ndjson"}
+	if !*noFilter {
+		args = append(args, "--predicate", *predicate)
+	}
+	cmd := exec.Command("log", args...)
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
 		return err
@@ -121,6 +133,7 @@ func streamLogs() error {
 }
 
 func main() {
+	flag.Parse()
 	log.SetFlags(0)
 	if err := streamLogs(); err != nil {
 		log.Fatal(err)
