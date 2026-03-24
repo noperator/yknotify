@@ -64,7 +64,7 @@ launchctl start com.user.yknotify
 
 ### Troubleshooting
 
-I've seen a few rare false positives (i.e., a log when the YubiKey is not waiting for touch) that I haven't diagnosed—but _no_ false negatives (i.e., no log when the YubiKey is waiting for touch). If you see false anythings, please open an issue with the log message and I'll try to add a filter for it.
+I've seen a few rare false positives (i.e., a log when the YubiKey is not waiting for touch) ~~that I haven't diagnosed~~ (fixed now)—but _no_ false negatives (i.e., no log when the YubiKey is waiting for touch). If you see false anythings, please open an issue with the log message and I'll try to add a filter for it.
 
 ### See also
 
