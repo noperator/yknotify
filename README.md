@@ -66,6 +66,16 @@ launchctl start com.user.yknotify
 
 I've seen a few rare false positives (i.e., a log when the YubiKey is not waiting for touch) ~~that I haven't diagnosed~~ (fixed now)—but _no_ false negatives (i.e., no log when the YubiKey is waiting for touch). If you see false anythings, please open an issue with the log message and I'll try to add a filter for it.
 
+FIDO2 detection is limited to HID devices whose USB vendor ID is Yubico's (`0x1050`). The kernel identifies a HID device only by its IORegistry entry ID, so `yknotify` looks the device up via `ioreg` to find the vendor behind it. Without that check, *any* USB HID device opened through `IOHIDLibUserClient`—a hardware wallet, for instance—is indistinguishable from a YubiKey in the logs, and notifies once per second for as long as it stays open.
+
+If you use a non-Yubico security key, pass its vendor ID with `-vendor` (comma-separated, hex):
+
+```
+yknotify -vendor 0x1050,0x20a0
+```
+
+A device whose vendor can't be resolved is still allowed to notify, so this check can only ever cost a false positive—never a missed touch prompt.
+
 ### See also
 
 - https://github.com/maximbaz/yubikey-touch-detector/issues/5#issuecomment-2568300068
